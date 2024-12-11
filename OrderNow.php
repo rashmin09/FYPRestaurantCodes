@@ -81,8 +81,8 @@ mysqli_close($link);
             align-self: flex-end;
         }
         .quantity-display {
-            font-size: 1.5rem; /* Increase the font size */
-            height: 50px; /* Increase the height for better visibility */
+            font-size: 1.5rem;
+            height: 50px;
         }
     </style>
 </head>
@@ -124,7 +124,7 @@ mysqli_close($link);
     
     <!-- Offcanvas for editing order -->
     <div id="offcanvas">
-        <button class="close-offcanvas" onclick="closeOffcanvas()">×</button>
+        <button class="close-offcanvas" onclick="closeOffcanvas()">&times;</button>
         <div id="offcanvasCard"></div>
         <form id="editForm" action="UpdateMeal.php" method="POST">
             <input type="hidden" name="id" id="editItemId">
@@ -152,48 +152,27 @@ mysqli_close($link);
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
-        <form id="deleteMeal" action="DeleteMeal.php" method="POST">
-            <button type="submit" class="btn btn-primary">Delete</button>
+        <form id="deleteForm" action="DeleteMeal.php" method="POST">
+            <input type="hidden" name="id" id="deleteItemId">
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>
 
     <script>
-    function updateCardQuantity(id) {
-        // Fetch updated quantity from OrderNow.php
-        fetch(`OrderNow.php?id=${id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.quantity > 1) {
-                    const cardElement = document.getElementById(`card-${id}`);
-                    const quantityDisplay = cardElement.querySelector(".quantity-display");
-                    quantityDisplay.textContent = `X + ${data.quantity}`;
-                }
-            })
-            .catch(error => console.error("Error fetching updated quantity:", error));
-    }
-
-    // Open the offcanvas, populate fields, and attach update logic
     function openOffcanvas(index) {
         const items = <?php echo json_encode($arrItems); ?>;
         const item = items[index];
 
+        // Populate edit form fields
         document.getElementById("editItemId").value = item.id;
         document.getElementById("editItemSauce").value = item.sauces;
         document.getElementById("editItemSide").value = item.sides;
         document.getElementById("editItemQuantity").value = item.quantity;
 
-        document.getElementById("offcanvas").style.display = "flex";
+        // Populate delete form
+        document.getElementById("deleteItemId").value = item.id;
 
-        // Update the card after form submission
-        const form = document.getElementById("editForm");
-        form.onsubmit = () => {
-            setTimeout(() => updateCardQuantity(item.id), 500);
-        };
-        
-//        const form = document.getElementById("deleteMeal");
-//        form.onsubmit = () => {
-//            setTimeout(() => updateCardQuantity(item.id), 500);
-//        };
+        document.getElementById("offcanvas").style.display = "flex";
     }
 
     function closeOffcanvas() {
