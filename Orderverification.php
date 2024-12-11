@@ -17,5 +17,7 @@
         <h2>Order Verification</h2>
     </div>
     <br>
+<!--    page will show the verification number 
+    and the customer's order-->
 </body>
 </html>

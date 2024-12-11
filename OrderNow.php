@@ -152,6 +152,9 @@ mysqli_close($link);
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
+        <form id="deleteMeal" action="DeleteMeal.php" method="POST">
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
     </div>
 
     <script>
@@ -186,6 +189,11 @@ mysqli_close($link);
         form.onsubmit = () => {
             setTimeout(() => updateCardQuantity(item.id), 500);
         };
+        
+//        const form = document.getElementById("deleteMeal");
+//        form.onsubmit = () => {
+//            setTimeout(() => updateCardQuantity(item.id), 500);
+//        };
     }
 
     function closeOffcanvas() {

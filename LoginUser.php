@@ -81,16 +81,22 @@ input[type="submit"]:hover {
         </form>
     </div>
       <footer>
+          <div style="display: flex">
+          <div style="flex:1">
             <h2>Follow Us</h2>
             <p>Stay updated on our latest news and promotions:</p>
             <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i> Facebook</a> |
             <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a> |
             <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+          </div>
             <br><br>
+          <div style=" flex:1">
             <h2>Contact Us</h2>
             <p>Email: info@ourrestaurant.com</p>
             <p>Phone: (123) 456-7890</p>
             <p>Address: 123 Main Street, City, State, ZIP</p>
+          </div>
+          </div>
         </footer>
 </body>
 </html>
