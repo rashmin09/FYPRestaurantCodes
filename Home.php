@@ -53,7 +53,7 @@
 
             .carousel-container {
                 margin-bottom: 50px;
-                max-width: 95%; /* Adjust the width of the carousel */
+                max-width: 95%;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -343,11 +343,12 @@
         <!-- Footer Section -->
         <footer>
             <p>Follow us on social media:</p>
+            <b></b>
             <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
             <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
             <a href="https://twitter.com/" target="_blank">Twitter</a>
-            <p>Contact Us: info@ourrestaurant.com | (123) 456-7890</p>
-            <p>123 Main Street, City, State, ZIP</p>
+            <p>Contact Us: info@ourrestaurant.com | +65 1234 5678</p>
+            <p>Example Street 1, Postal Code</p>
         </footer>
 
     </body>

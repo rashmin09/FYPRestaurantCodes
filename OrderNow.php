@@ -106,7 +106,7 @@ mysqli_close($link);
                             <img src="meals/<?php echo $restaurantPicture; ?>" class="card-img-top" alt="Image of <?php echo $restaurantName; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $restaurantName; ?></h5>
-                                <span class="card-price">Price: <?php echo $restaurantPrice; ?></span>
+                                <span class="card-price">Price: $<?php echo number_format($restaurantPrice, 2); ?></span>
                                 <p class="card-text"><?php echo $restaurantSD; ?></p>
                                 <div class="quantity-display"><b>X</b><?php echo $restaurantquantity; ?></div> 
                                 <button class="edit-btn" onclick="openOffcanvas(<?php echo $i; ?>)">Edit</button>
@@ -179,5 +179,11 @@ mysqli_close($link);
         document.getElementById("offcanvas").style.display = "none";
     }
     </script>
+    
+    <?php if (count($arrItems) > 0) { ?>
+<div class="text-center mt-4">
+    <a href="confirmOrder.php" class="btn btn-success btn-lg">Proceed with Order</a>
+</div>
+<?php } ?>
 </body>
 </html>
