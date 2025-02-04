@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Updated Navbar -->
+<?php
+session_start();
+?>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        .navbar {
+            background-color: #2C3E50; /* New color scheme: dark blue */
+            border-bottom: none; /* Remove white line */
+        }
+        .navbar-brand {
+            font-family: 'Roboto', sans-serif; /* Modern font */
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ECF0F1;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #ECF0F1;
+            transition: color 0.3s;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #18BC9C; /* Hover color */
+        }
         /* Reset styles for a fresh look */
         * {
             margin: 0;
@@ -30,63 +51,37 @@
             font-weight: 600;
         }
 
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1rem;
-        }
-
-        nav a:hover {
-            color: #ffc107;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            background-color: #ffffff;
-            padding: 80px 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
-        }
-
-        .welcome-section h1 {
-            color: #e74c3c;
-            font-size: 2.8rem;
-            margin-bottom: 30px;
-        }
-
-        .welcome-section p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-
-        .welcome-section img {
+        .carousel-item img {
             width: 100%;
-            max-width: 600px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Carousel Section */
-        .carousel-container {
-            max-width: 90%;
-            margin: 50px auto;
-        }
-
-        .carousel-inner img {
             height: 500px;
             object-fit: cover;
-            border-radius: 12px;
         }
-
-        .carousel-control-prev-icon, .carousel-control-next-icon {
-            background-color: #e74c3c;
+        .section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .popular-dish {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .popular-dish img {
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .popular-dish .text {
+            flex: 1;
+            padding: 10px;
+            max-width: 600px;
+            text-align: left;
+        }
+        .popular-dish-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         /* Locations Section */
@@ -158,42 +153,121 @@
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <?php include("navbar.php"); ?>
-
-    <!-- Welcome Section -->
-    <div class="container welcome-section">
-        <h1>Welcome to Fortuna!</h1>
-        <p>Experience the finest meals in a modern and comfortable environment. Whether you're here for a casual bite or a special celebration, we promise to deliver a memorable experience every time.</p>
-        <img src="your-image-path.jpg" alt="Restaurant Image">
-    </div>
-
-    <!-- Carousel Section -->
-    <div class="container carousel-container">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="Carousel/Banner1.png" class="d-block w-100" alt="Image 1">
-                </div>
-                <div class="carousel-item">
-                    <img src="Carousel/Banner2b.png" class="d-block w-100" alt="Image 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="Carousel/Banner3.png" class="d-block w-100" alt="Image 3">
-                </div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Home.php">YourLogo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Menu.php">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AboutUs.php">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.php">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="LoginUser.php">Login</a>
+                    </li>
+                </ul>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+    </nav>
+</body>
+</html>
+
+<!-- Updated Homepage -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F8F9FA; /* Light background */
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        .section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="Carousel/Carousel1.png" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="Carousel/Carousel2.png" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="Carousel/Carousel3.png" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
+    <div class="section">
+        <h2>About Our Restaurant</h2>
+        <p>Welcome to a culinary journey like no other. Experience the flavors of the world on your plate.</p>
+    </div>
+
+    <div class="section" style="background-color: #E9ECEF;">
+        <h2>Popular Dishes</h2>
+        <p>Our most loved meals, crafted to perfection.</p>
+    </div>
+    <div class="popular-dish">
+            <img src="meals/placeholder1.jpg" alt="Dish Image">
+            <div class="text">
+                <h3>Dish Name</h3>
+                <p>A short description of the dish, highlighting its unique flavors and ingredients.</p>
+            </div>
+        </div>
+        <div class="popular-dish">
+            <div class="text">
+                <h3>Dish Name</h3>
+                <p>A short description of the dish, highlighting its unique flavors and ingredients.</p>
+            </div>
+            <img src="meals/placeholder2.jpg" alt="Dish Image">
+        </div>
+        <div class="popular-dish">
+            <img src="meals/placeholder3.jpg" alt="Dish Image">
+            <div class="text">
+                <h3>Dish Name</h3>
+                <p>A short description of the dish, highlighting its unique flavors and ingredients.</p>
+            </div>
+        </div>
+        <div class="popular-dish">
+            <div class="text">
+                <h3>Dish Name</h3>
+                <p>A short description of the dish, highlighting its unique flavors and ingredients.</p>
+            </div>
+            <img src="meals/placeholder4.jpg" alt="Dish Image">
+        </div>
+
+    <div class="section">
+        <h2>Visit Us</h2>
+        <p>Find us at our prime location and enjoy a delightful meal.</p>
+    </div>
     <!-- Locations Section -->
     <div class="container locations-section">
         <h2>Our Locations</h2>
@@ -383,6 +457,5 @@
         <p>Contact Us: info@ourrestaurant.com | +65 1234 5678</p>
         <p>Example Street 1, Postal Code</p>
     </footer>
-
 </body>
 </html>

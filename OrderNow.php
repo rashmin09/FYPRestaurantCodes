@@ -11,6 +11,12 @@ if (isset($_SESSION['userId'])) {
     $userId = 'guest'; // Assign a default guest user ID if no user is logged in
 }
 
+// Check if payment is confirmed
+if (isset($_SESSION['paymentVerified']) && $_SESSION['paymentVerified'] === true) {
+    // Clear the order items once payment is verified
+    unset($_SESSION['orderItems']);
+}
+
 // Query to fetch orders for the logged-in user or guest
 $queryOrders = "SELECT id, picture, name, price, short_description, sauces, sides, quantity, TotalValue 
                 FROM orderdetails 
