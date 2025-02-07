@@ -1,6 +1,5 @@
 <?php
 include "dbFunctions.php";
-session_start();
 
 // Check if user is logged in, if not set guest userId
 if (isset($_SESSION['userId'])) {
