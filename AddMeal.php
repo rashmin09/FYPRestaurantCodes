@@ -50,6 +50,8 @@
 </head>
 <body>
     <?php include 'navbar.php'; ?>
+    <br>
+    <br>
     <div class="text-center">
         <h2>Register Meal</h2>
     </div>
@@ -103,4 +105,6 @@
         </form>
     </div>
 </body>
+<br>
+<br>
 </html>

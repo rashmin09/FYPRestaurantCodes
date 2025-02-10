@@ -116,7 +116,7 @@ session_start();
             </div>
             <!-- Order Now Header -->
             <a href="OrderNow.php" class="order-now">
-                Order Now
+                Cart
             </a>
         </div>
     </nav>

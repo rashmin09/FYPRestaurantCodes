@@ -1,5 +1,4 @@
 <?php 
-session_start();  // Ensure session starts before accessing session variables
 include("navbar.php"); 
 include "dbFunctions.php";  // Ensure this file correctly initializes $link (database connection)
 
@@ -24,6 +23,17 @@ $stmt = mysqli_prepare($link, $queryInsertQueue);
 mysqli_stmt_bind_param($stmt, 'iss', $checkoutId, $userId, $verificationCode);
 mysqli_stmt_execute($stmt);
 
+// Update orderdetails table to set checkoutId where it is NULL for the same userId
+// Also update the time field to the current timestamp
+$currentTime = date('Y-m-d H:i:s');  // Get the current time in the format 'YYYY-MM-DD HH:MM:SS'
+
+$queryUpdateOrderDetails = "UPDATE orderdetails 
+                            SET checkoutId = ?, time = ? 
+                            WHERE userId = ? AND checkoutId IS NULL";
+$stmtUpdate = mysqli_prepare($link, $queryUpdateOrderDetails);
+mysqli_stmt_bind_param($stmtUpdate, 'iss', $checkoutId, $currentTime, $userId);
+mysqli_stmt_execute($stmtUpdate);
+
 // Retrieve the inserted queue_number
 $queryRetrieveQueue = "SELECT queue_number FROM queuetable WHERE checkoutId = ?";
 $stmtQueue = mysqli_prepare($link, $queryRetrieveQueue);
@@ -35,6 +45,7 @@ mysqli_stmt_fetch($stmtQueue);
 // Close database connection
 mysqli_stmt_close($stmt);
 mysqli_stmt_close($stmtQueue);
+mysqli_stmt_close($stmtUpdate);
 mysqli_close($link);
 ?>
 

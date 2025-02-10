@@ -1,7 +1,6 @@
 <?php
 include "dbFunctions.php";
 session_start();
-
 // Check if user is logged in, if not set guest userId
 if (isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId']; // Get the user ID from session if logged in
@@ -9,12 +8,13 @@ if (isset($_SESSION['userId'])) {
     $userId = 'guest'; // Assign a default guest user ID if no user is logged in
 }
 
-// Query to fetch orders for the logged-in user or guest
-$queryOrders = "SELECT id, name, price, quantity, groupId 
+// Query to fetch orders for the logged-in user (no longer filtering by groupId)
+$queryOrders = "SELECT id, name, price, quantity 
                 FROM orderdetails 
-                WHERE userId = ?"; // Only fetch orders that are not grouped
+                WHERE userId = ?"; // Fetch all orders for the user, regardless of groupId
+
 $stmt = mysqli_prepare($link, $queryOrders);
-mysqli_stmt_bind_param($stmt, 's', $userId);  // Bind 's' for string (since userId can be guest)
+mysqli_stmt_bind_param($stmt, 's', $userId);
 mysqli_stmt_execute($stmt);
 $resultOrders = mysqli_stmt_get_result($stmt);
 
@@ -24,21 +24,7 @@ while ($row = mysqli_fetch_assoc($resultOrders)) {
     $arrItems[] = $row;
 }
 
-// Generate new groupId if no orders are grouped
-$queryMaxGroupId = "SELECT MAX(groupId) AS lastGroupId FROM orderdetails";
-$resultMaxGroupId = mysqli_query($link, $queryMaxGroupId);
-$row = mysqli_fetch_assoc($resultMaxGroupId);
-$groupId = isset($row['lastGroupId']) ? $row['lastGroupId'] + 1 : 1; // Start from 1 if no groupId exists
-
-// Update the groupId for the orders
-if (count($arrItems) > 0) {
-    $queryUpdateGroupId = "UPDATE orderdetails SET groupId = ? WHERE userId = ? AND groupId IS NULL"; // Update orders where groupId is NULL
-    $stmt = mysqli_prepare($link, $queryUpdateGroupId);
-    mysqli_stmt_bind_param($stmt, 'is', $groupId, $userId);
-    mysqli_stmt_execute($stmt);
-}
-
-mysqli_close($link); // Close the database connection after all queries
+mysqli_close($link); // Close the database connection after fetching data
 ?>
 
 <!DOCTYPE html>
@@ -81,15 +67,14 @@ mysqli_close($link); // Close the database connection after all queries
             </table>
             <h3 class="text-end">Total Price: $<?php echo number_format($totalPrice, 2); ?></h3>
             <div class="text-center mt-4">
+                <!-- Remove groupId from here to avoid accidental assignment -->
                 <form method="post" action="queue.php">
-                    <input type="hidden" name="groupId" value="<?php echo $groupId; ?>"> <!-- Pass groupId to queue.php -->
                     <button type="submit" class="btn btn-primary btn-lg">Checkout</button>
                 </form>
             </div>
         <?php else: ?>
             <p>No orders found in your cart. Please add items to your cart before proceeding.</p>
         <?php endif; ?>
-
     </div>
 </body>
 </html>
